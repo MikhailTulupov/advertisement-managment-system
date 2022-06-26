@@ -27,9 +27,11 @@ public class Viewed {
             strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Column(name = "user_guid")
-    private UUID userGuid;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_guid", referencedColumnName = "id")
+    private User user;
 
-    @Column(name = "content_guid")
-    private UUID contentGuid;
+   @ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "content_guid", referencedColumnName = "id")
+    private Content content;
 }

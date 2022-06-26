@@ -31,6 +31,11 @@ public class Content {
     @Builder.Default
     private Set<Page> pages = new HashSet<>();
 
+    @OneToMany(mappedBy = "content")
+    @Builder.Default
+    private Set<Viewed> viewedSet = new HashSet<>();
+
+
     public Content(UUID id) {
         this.id = id;
     }
