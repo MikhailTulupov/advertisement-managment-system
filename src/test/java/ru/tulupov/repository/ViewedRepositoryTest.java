@@ -51,31 +51,28 @@ public class ViewedRepositoryTest {
         Content content = new Content();
         userRepository.save(user);
         contentRepository.save(content);
-        viewed = Viewed.builder().userGuid(user.getId()).contentGuid(content.getId()).build();
+        viewed = Viewed.builder().user(user).content(content).build();
         viewedRepository.save(viewed);
     }
 
     @Test
     void findAllViewedContentByUserId() {
         initFindAllViewedContentByUserId();
-        List<Content> contentList = viewedRepository.findAllByUserGuid(user.getId());
+        List<Content> contentList = viewedRepository.findAllContentByUserId(user.getId());
         Assertions.assertEquals(10, contentList.size());
     }
 
     @Test
     void findAllUsersByContentId() {
         initFindAllUsersByContentId();
-        List<User> userList = viewedRepository.findAllByContentGuid(content.getId());
+        List<User> userList = viewedRepository.findAllUsersByContentId(content.getId());
         Assertions.assertEquals(users, userList);
     }
-
     private void initFindAllViewedContentByUserId() {
         user = new User();
-        userRepository.save(user);
         for (int i = 0; i < 10; i++) {
             Content content = new Content();
-            contentRepository.save(content);
-            Viewed viewed = Viewed.builder().userGuid(user.getId()).contentGuid(content.getId()).build();
+            Viewed viewed = Viewed.builder().user(user).content(content).build();
             viewedRepository.save(viewed);
         }
     }
@@ -88,8 +85,22 @@ public class ViewedRepositoryTest {
             User user = new User();
             userRepository.save(user);
             users.add(user);
-            Viewed viewed = Viewed.builder().userGuid(user.getId()).contentGuid(content.getId()).build();
+            Viewed viewed = Viewed.builder().user(user).content(content).build();
             viewedRepository.save(viewed);
         }
+    }
+
+    @Test
+    public void setViewedTest() {
+        initSetViewed();
+        List<Viewed> all = viewedRepository.findAll();
+        List<User> all1 = userRepository.findAll();
+        List<Content> all2 = contentRepository.findAll();
+        Assertions.assertEquals(1, all.size());
+    }
+
+    private void initSetViewed() {
+        Viewed viewed1 = Viewed.builder().user(new User()).content(new Content()).build();
+        viewedRepository.save(viewed1);
     }
 }

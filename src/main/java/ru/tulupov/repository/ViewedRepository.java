@@ -2,6 +2,7 @@ package ru.tulupov.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.tulupov.model.Content;
 import ru.tulupov.model.User;
@@ -21,14 +22,14 @@ public interface ViewedRepository extends JpaRepository<Viewed, UUID> {
      * @param id content guid
      * @return list of users
      */
-    @Query("SELECT NEW ru.tulupov.model.User(v.userGuid) FROM Viewed v")
-    List<User> findAllByContentGuid(UUID id);
+    @Query("SELECT v.user FROM Viewed v WHERE v.content.id = :id")
+    List<User> findAllUsersByContentId(@Param("id") UUID id);
 
     /**
      * Method finds all contents witch user viewed.
      * @param id user guid
      * @return list of contents
      */
-    @Query("SELECT NEW ru.tulupov.model.Content(v.contentGuid) FROM Viewed v")
-    List<Content> findAllByUserGuid(UUID id);
+    @Query("SELECT v.content FROM Viewed v WHERE v.user.id = :id")
+    List<Content> findAllContentByUserId(@Param("id") UUID id);
 }

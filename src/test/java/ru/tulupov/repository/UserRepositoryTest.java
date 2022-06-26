@@ -11,8 +11,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tulupov.ApplicationTest;
 import ru.tulupov.model.User;
+import ru.tulupov.model.Viewed;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Class {@link UserRepositoryTest} testing {@link UserRepository} CRUD methods.
@@ -27,7 +30,7 @@ public class UserRepositoryTest {
 
     @BeforeEach
     void initUseCase() {
-        user = User.builder().build();
+        user = new User();
         userRepository.save(user);
     }
 
@@ -37,7 +40,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    void findUserById() {
+    void findUserByIdTest() {
         Optional<User> byId = userRepository.findById(user.getId());
         byId.ifPresent(value -> Assertions.assertEquals(user.getId(), value.getId()));
     }

@@ -3,10 +3,9 @@ package ru.tulupov.model;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -24,4 +23,12 @@ public class User {
     @GenericGenerator(name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
+
+    @OneToMany(mappedBy = "user")
+    @Builder.Default
+    private Set<Viewed> viewedSet = new HashSet<>();
+
+    public User(UUID id) {
+        this.id = id;
+    }
 }
