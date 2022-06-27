@@ -22,9 +22,6 @@ import java.util.UUID;
 @Table(name = "content")
 public class Content {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     @ManyToMany(mappedBy = "contents")

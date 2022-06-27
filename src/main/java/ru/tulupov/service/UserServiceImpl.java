@@ -1,0 +1,7 @@
+package ru.tulupov.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserServiceImpl implements UserService{
+}
