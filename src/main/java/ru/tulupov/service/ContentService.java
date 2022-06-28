@@ -13,15 +13,17 @@ public interface ContentService {
      * Method save {@link Content} in database.
      *
      * @param content content
+     * @return save entity.
      */
-    void save(Content content);
+    Content save(Content content);
 
     /**
      * Method save {@link List}<{@link Content}> in database.
      *
      * @param contents list of contents
+     * @return list saves entities.
      */
-    void saveAll(List<Content> contents);
+    List<Content> saveAll(List<Content> contents);
 
     /**
      * Method find {@link Content} by id and return content.

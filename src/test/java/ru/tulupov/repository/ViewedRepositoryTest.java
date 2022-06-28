@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tulupov.ApplicationTest;
+import ru.tulupov.Application;
 import ru.tulupov.model.Content;
 import ru.tulupov.model.User;
 import ru.tulupov.model.Viewed;
@@ -18,7 +18,7 @@ import java.util.*;
  */
 @ExtendWith(SpringExtension.class)
 @Transactional
-@SpringBootTest(classes = ApplicationTest.class)
+@SpringBootTest(classes = Application.class)
 public class ViewedRepositoryTest {
     @Autowired
     private ViewedRepository viewedRepository;

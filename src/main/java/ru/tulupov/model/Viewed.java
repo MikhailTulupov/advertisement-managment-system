@@ -1,9 +1,6 @@
 package ru.tulupov.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,7 +12,7 @@ import java.util.UUID;
  * The {@link Viewed} class stores records of the content viewed by the user.
  */
 @Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -27,11 +24,11 @@ public class Viewed {
             strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_guid", referencedColumnName = "id")
     private User user;
 
-   @ManyToOne(cascade = CascadeType.ALL)
+   @ManyToOne
    @JoinColumn(name = "content_guid", referencedColumnName = "id")
     private Content content;
 }

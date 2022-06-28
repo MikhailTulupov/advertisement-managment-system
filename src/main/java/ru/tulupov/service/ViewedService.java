@@ -16,14 +16,14 @@ public interface ViewedService {
      *
      * @param viewed viewed
      */
-    void save(Viewed viewed);
+    Viewed save(Viewed viewed);
 
     /**
      * Method save {@link List}<{@link Viewed}> in database.
      *
      * @param viewedList list of viewed
      */
-    void saveAll(List<Viewed> viewedList);
+    List<Viewed> saveAll(List<Viewed> viewedList);
 
     /**
      * Method find {@link Viewed} by id and return viewed.
