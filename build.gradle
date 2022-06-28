@@ -20,6 +20,9 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
     testImplementation 'org.junit.vintage:junit-vintage-engine:5.8.2'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+    implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
 }
 
 test {
