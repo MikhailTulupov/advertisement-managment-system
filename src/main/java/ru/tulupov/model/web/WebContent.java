@@ -1,5 +1,6 @@
 package ru.tulupov.model.web;
 
+
 import com.fasterxml.jackson.annotation.JsonAlias;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,6 +21,7 @@ public class WebContent implements Serializable {
             type = "String",
             example = "81a474b8-c127-4a70-a6de-a9ea40601e58")
     private String id;
+
 
     @JsonAlias(value = "pages")
     @ArraySchema( arraySchema =  @Schema(
