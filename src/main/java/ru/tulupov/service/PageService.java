@@ -5,6 +5,19 @@ import ru.tulupov.model.Page;
 import java.util.List;
 
 public interface PageService {
-    void saveAll(List<Page> pages);
-    void save(Page page);
+    /**
+     * Method save list of entities.
+     *
+     * @param pages list of pages.
+     * @return list saves entities.
+     */
+    List<Page> saveAll(List<Page> pages);
+
+    /**
+     * Method save entity.
+     *
+     * @param page page
+     * @return save entity.
+     */
+    Page save(Page page); 
 }

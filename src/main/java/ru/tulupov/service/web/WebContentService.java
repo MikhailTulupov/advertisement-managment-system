@@ -1,8 +1,6 @@
 package ru.tulupov.service.web;
 
-import ru.tulupov.model.Content;
 import ru.tulupov.model.web.WebContent;
-import ru.tulupov.service.ContentService;
 
 import java.util.List;
 
@@ -14,15 +12,18 @@ public interface WebContentService {
      * Method save {@link WebContent} in database.
      *
      * @param webContent web content
+     * @return save entity.
      */
-    void save(WebContent webContent);
+    WebContent save(WebContent webContent);
 
     /**
      * Method save {@link List}<{@link WebContent}> in database.
      *
      * @param webContentList list of web contents
+     * @return list save entities.
      */
-    void saveAll(List<WebContent> webContentList);
+    List<WebContent> saveAll(List<WebContent> webContentList);
+
 
     /**
      * Method find {@link WebContent} by id and return content.

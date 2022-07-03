@@ -1,6 +1,7 @@
 package ru.tulupov.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.tulupov.model.Content;
 import ru.tulupov.model.User;
@@ -16,16 +17,17 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class ViewedServiceImpl implements ViewedService {
-    final ViewedRepository viewedRepository;
+    @Autowired
+    ViewedRepository viewedRepository;
 
     @Override
-    public void save(Viewed viewed) {
-        viewedRepository.save(viewed);
+    public Viewed save(Viewed viewed) {
+        return viewedRepository.save(viewed);
     }
 
     @Override
-    public void saveAll(List<Viewed> viewedList) {
-        viewedRepository.saveAll(viewedList);
+    public List<Viewed> saveAll(List<Viewed> viewedList) {
+        return viewedRepository.saveAll(viewedList);
     }
 
     @Override

@@ -5,6 +5,8 @@ import org.mapstruct.factory.Mappers;
 import ru.tulupov.model.Content;
 import ru.tulupov.model.web.WebContent;
 
+import java.util.List;
+
 /**
  * The {@link ContentMapper} interfaces provides methods for mapping to data classes.
  */
@@ -13,5 +15,8 @@ public interface ContentMapper {
     ContentMapper INSTANCE = Mappers.getMapper(ContentMapper.class);
 
     Content webContentToContent(WebContent webContent);
+
     WebContent contentToWebContent(Content content);
+
+    List<WebContent> contentsToWebContents(List<Content> contents);
 }

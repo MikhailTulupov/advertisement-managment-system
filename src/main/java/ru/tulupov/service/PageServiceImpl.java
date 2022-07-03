@@ -6,6 +6,7 @@ import ru.tulupov.model.Page;
 import ru.tulupov.repository.PageRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PageServiceImpl implements PageService{
@@ -13,12 +14,12 @@ public class PageServiceImpl implements PageService{
     PageRepository pageRepository;
 
     @Override
-    public void saveAll(List<Page> pages) {
-        pageRepository.saveAll(pages);
+    public List<Page> saveAll(List<Page> pages) {
+        return pageRepository.saveAll(pages);
     }
 
     @Override
-    public void save(Page page) {
-        pageRepository.save(page);
+    public Page save(Page page) {
+        return pageRepository.save(page);
     }
 }

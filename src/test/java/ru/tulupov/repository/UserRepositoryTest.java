@@ -9,20 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tulupov.ApplicationTest;
+import ru.tulupov.Application;
 import ru.tulupov.model.User;
-import ru.tulupov.model.Viewed;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Class {@link UserRepositoryTest} testing {@link UserRepository} CRUD methods.
  */
 @ExtendWith(SpringExtension.class)
 @Transactional
-@SpringBootTest(classes = ApplicationTest.class)
+@SpringBootTest(classes = Application.class)
 public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;

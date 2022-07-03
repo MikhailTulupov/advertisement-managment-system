@@ -7,6 +7,7 @@ import ru.tulupov.model.Content;
 import ru.tulupov.repository.ContentRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -15,16 +16,17 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class ContentServiceImpl implements ContentService {
-    final ContentRepository contentRepository;
+    @Autowired
+    ContentRepository contentRepository;
 
     @Override
-    public void save(Content content) {
-        contentRepository.save(content);
+    public Content save(Content content) {
+        return contentRepository.save(content);
     }
 
     @Override
-    public void saveAll(List<Content> contents) {
-        contentRepository.saveAll(contents);
+    public List<Content> saveAll(List<Content> contents) {
+        return contentRepository.saveAll(contents);
     }
 
     @Override

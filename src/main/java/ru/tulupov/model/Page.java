@@ -1,9 +1,6 @@
 package ru.tulupov.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,9 +17,10 @@ import java.util.UUID;
  * just as a {@link Content} can be contained on a {@link Set} of {@link Page}.
  */
 @Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(exclude = "contents")
 @Entity
 @Table(name = "page")
 public class Page {
@@ -35,7 +33,12 @@ public class Page {
     @Column
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.EAGER,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinTable(name = "page_content",
             joinColumns = @JoinColumn(name = "page_id"),
             inverseJoinColumns = @JoinColumn(name = "content_id"))

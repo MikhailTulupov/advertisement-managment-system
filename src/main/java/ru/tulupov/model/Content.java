@@ -1,7 +1,6 @@
 package ru.tulupov.model;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,25 +14,29 @@ import java.util.UUID;
  * i.e. {@link Content} can be contained on many pages. And a {@link Page} can contain {@link Set}<{@link Content}>.
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
 @Builder
+@EqualsAndHashCode(exclude = {"pages", "viewedSet"})
 @Entity
 @Table(name = "content")
 public class Content {
     @Id
+    @NonNull
     private UUID id;
 
-    @ManyToMany(mappedBy = "contents")
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "contents",
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @Builder.Default
     private Set<Page> pages = new HashSet<>();
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "content")
     @Builder.Default
     private Set<Viewed> viewedSet = new HashSet<>();
-
-
-    public Content(UUID id) {
-        this.id = id;
-    }
 }

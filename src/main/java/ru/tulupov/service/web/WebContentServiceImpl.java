@@ -4,19 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.tulupov.mapper.ContentMapper;
 import ru.tulupov.model.Content;
-
 import ru.tulupov.model.Page;
 import ru.tulupov.model.web.WebContent;
 import ru.tulupov.service.ContentService;
 import ru.tulupov.service.PageService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import ru.tulupov.service.ContentServiceImpl;
-
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The {@link WebContentServiceImpl} class implements {@link WebContentService} methods.
@@ -29,22 +22,29 @@ public class WebContentServiceImpl implements WebContentService {
     PageService pageService;
 
     @Override
-    public void save(WebContent webContent) {
+    public WebContent save(WebContent webContent) {
         Content content = ContentMapper.INSTANCE.webContentToContent(webContent);
         Set<Page> pages = content.getPages();
-        pageService.saveAll(List.copyOf(pages));
-        content.setPages(pages);
-        contentService.save(content);
+        for (Page page : pages) {
+            page.getContents().add(content);
+        }
+        return ContentMapper.INSTANCE.contentToWebContent(contentService.save(content));
     }
 
     @Override
-    public void saveAll(List<WebContent> webContentList) {
+    public List<WebContent> saveAll(List<WebContent> webContentList) {
         List<Content> contents = new ArrayList<>();
-        for (WebContent webContent: webContentList) {
+        for (WebContent webContent : webContentList) {
             Content content = ContentMapper.INSTANCE.webContentToContent(webContent);
             contents.add(content);
+            Set<Page> pages = content.getPages();
+
+            for (Page page : pages) {
+                page.getContents().add(content);
+            }
         }
-        contentService.saveAll(contents);
+
+        return ContentMapper.INSTANCE.contentsToWebContents(contentService.saveAll(contents));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class WebContentServiceImpl implements WebContentService {
     public List<WebContent> getAll() {
         List<Content> contents = contentService.getAll();
         List<WebContent> webContents = new ArrayList<>();
-        for (Content content: contents) {
+        for (Content content : contents) {
             webContents.add(ContentMapper.INSTANCE.contentToWebContent(content));
         }
         return webContents;
