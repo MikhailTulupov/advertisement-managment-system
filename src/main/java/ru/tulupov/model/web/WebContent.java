@@ -13,6 +13,7 @@ import java.util.Set;
 /**
  * The class {@link WebContent} presents canal model class.
  */
+
 @Data
 @Schema
 @Builder

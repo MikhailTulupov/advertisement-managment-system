@@ -19,5 +19,5 @@ public interface PageService {
      * @param page page
      * @return save entity.
      */
-    Page save(Page page);
+    Page save(Page page); 
 }

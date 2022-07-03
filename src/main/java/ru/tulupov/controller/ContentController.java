@@ -17,7 +17,6 @@ import java.util.List;
  * The {@link ContentController} class presents' controller.
  */
 @RestController
-
 public class ContentController {
     @Autowired
     WebContentService webContentService;
@@ -38,6 +37,4 @@ public class ContentController {
         webPublishedContent.setContents(webContentService.saveAll(webPublishedContent.getContents()));
         return webPublishedContent;
     }
-
-
 }

@@ -24,6 +24,7 @@ public interface WebContentService {
      */
     List<WebContent> saveAll(List<WebContent> webContentList);
 
+
     /**
      * Method find {@link WebContent} by id and return content.
      *

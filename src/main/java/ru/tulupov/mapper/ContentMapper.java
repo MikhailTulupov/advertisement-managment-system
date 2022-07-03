@@ -18,7 +18,5 @@ public interface ContentMapper {
 
     WebContent contentToWebContent(Content content);
 
-    List<Content> webContentsToContents(List<WebContent> webContents);
-
     List<WebContent> contentsToWebContents(List<Content> contents);
 }
