@@ -36,7 +36,12 @@ public class Content {
     private Set<Page> pages = new HashSet<>();
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "content")
+    @OneToMany(mappedBy = "content",
+            fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @Builder.Default
     private Set<Viewed> viewedSet = new HashSet<>();
 }
