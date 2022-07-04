@@ -1,7 +1,6 @@
 package ru.tulupov.model;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -23,7 +22,12 @@ public class User {
     private UUID id;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @Builder.Default
     private Set<Viewed> viewedSet = new HashSet<>();
 

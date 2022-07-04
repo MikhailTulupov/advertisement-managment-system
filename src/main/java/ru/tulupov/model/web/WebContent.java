@@ -36,4 +36,8 @@ public class WebContent implements Serializable {
                     "{\"pageName\": \"SHOP_PAGE\"}]"))
     @Builder.Default
     private Set<WebPage> pages = new HashSet<>();
+
+    public WebContent(String id) {
+        this.id = id;
+    }
 }

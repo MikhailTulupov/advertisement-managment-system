@@ -24,11 +24,19 @@ public class Viewed {
             strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinColumn(name = "user_guid", referencedColumnName = "id")
     private User user;
 
-   @ManyToOne
+   @ManyToOne(fetch = FetchType.EAGER,
+           cascade = {
+                   CascadeType.PERSIST,
+                   CascadeType.MERGE
+           })
    @JoinColumn(name = "content_guid", referencedColumnName = "id")
     private Content content;
 }
