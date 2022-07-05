@@ -25,7 +25,7 @@ public class WebViewed implements Serializable {
             title = "User guid",
             type = "String",
             example = "81a474b8-c135-4a73-a6de-a9ea51651e28")
-    private WebUser user;
+    private String user;
 
     @JsonAlias(value = "contentGuid")
     @JsonProperty(value = "contentGuid")
@@ -33,5 +33,5 @@ public class WebViewed implements Serializable {
             title = "Content guid",
             type = "String",
             example = "32a524b2-c127-2a45-a6de-a9ea40601e23")
-    private WebContent content;
+    private String content;
 }
