@@ -9,9 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.tulupov.model.web.WebContent;
 import ru.tulupov.model.web.WebPostViewed;
-import ru.tulupov.model.web.WebUser;
 import ru.tulupov.model.web.WebViewed;
 import ru.tulupov.service.web.WebViewedService;
 
@@ -40,11 +38,11 @@ public class ViewedControllerTest {
     public void postViewedTest() throws Exception {
         WebPostViewed webPostViewed = new WebPostViewed(List.of(
                 WebViewed.builder()
-                        .content(WebContent.builder().id("2090a014-b713-4ecc-8d10-4f9fb5c40c20").build())
-                        .user(WebUser.builder().id("0af6cc01-ae5d-43d1-ac3f-1f1060232779").build()).build(),
+                        .content("2090a014-b713-4ecc-8d10-4f9fb5c40c20")
+                        .user("0af6cc01-ae5d-43d1-ac3f-1f1060232779").build(),
                 WebViewed.builder()
-                        .content(WebContent.builder().id("2090a014-b713-4ecc-8d10-4f9fb5c40c31").build())
-                        .user(WebUser.builder().id("0af6cc01-ae5d-43d1-ac3f-1f1060225819").build()).build()));
+                        .content("2090a014-b713-4ecc-8d10-4f9fb5c40c31")
+                        .user("0af6cc01-ae5d-43d1-ac3f-1f1060225819").build()));
 
         when(webViewedService.saveAll(webPostViewed.getViewed())).thenReturn(webPostViewed.getViewed());
 
