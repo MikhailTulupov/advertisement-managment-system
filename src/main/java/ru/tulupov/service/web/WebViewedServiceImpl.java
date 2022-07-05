@@ -19,9 +19,9 @@ public class WebViewedServiceImpl implements WebViewedService{
     public List<WebViewed> saveAll(List<WebViewed> webViewed) {
         List<Viewed> viewed = new ArrayList<>();
         for (WebViewed el : webViewed) {
-            Viewed view = ViewedMapper.INSTANCE.webViewedToViewed(el);
+            Viewed view = ViewedMapper.webViewedToViewed(el);
             viewed.add(view);
         }
-        return ViewedMapper.INSTANCE.viewedListToWebViewedList(viewedService.saveAll(viewed));
+        return ViewedMapper.viewedListToWebViewedList(viewedService.saveAll(viewed));
     }
 }
