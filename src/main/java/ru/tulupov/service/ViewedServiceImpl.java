@@ -49,4 +49,9 @@ public class ViewedServiceImpl implements ViewedService {
     public List<Content> findAllContentByUserId(UUID id) {
         return viewedRepository.findAllContentByUserId(id);
     }
+
+    @Override
+    public List<Content> findAllNotViewedContentByUserId(UUID id) {
+        return viewedRepository.findAllNotViewedContentByUserId(id);
+    }
 }

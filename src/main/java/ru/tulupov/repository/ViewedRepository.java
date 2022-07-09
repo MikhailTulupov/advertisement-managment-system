@@ -32,4 +32,7 @@ public interface ViewedRepository extends JpaRepository<Viewed, UUID> {
      */
     @Query("SELECT v.content FROM Viewed v WHERE v.user.id = :id")
     List<Content> findAllContentByUserId(@Param("id") UUID id);
+
+    @Query("SELECT v.content FROM Viewed v WHERE v.user.id <> :id")
+    List<Content> findAllNotViewedContentByUserId(@Param("id") UUID id);
 }

@@ -32,11 +32,7 @@ public class Viewed {
     @JoinColumn(name = "user_guid", referencedColumnName = "id")
     private User user;
 
-   @ManyToOne(fetch = FetchType.EAGER,
-           cascade = {
-                   CascadeType.PERSIST,
-                   CascadeType.MERGE
-           })
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "content_guid", referencedColumnName = "id")
     private Content content;
 }
