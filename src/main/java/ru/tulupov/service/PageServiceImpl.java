@@ -2,11 +2,11 @@ package ru.tulupov.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.tulupov.model.Content;
 import ru.tulupov.model.Page;
 import ru.tulupov.repository.PageRepository;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PageServiceImpl implements PageService{
@@ -21,5 +21,10 @@ public class PageServiceImpl implements PageService{
     @Override
     public Page save(Page page) {
         return pageRepository.save(page);
+    }
+
+    @Override
+    public List<Content> findAllContentByPageName(String pageName) {
+        return pageRepository.findAllContentByPageName(pageName);
     }
 }

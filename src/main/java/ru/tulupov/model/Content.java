@@ -37,11 +37,10 @@ public class Content {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "content",
-            fetch = FetchType.EAGER,
             cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+    })
     @Builder.Default
     private Set<Viewed> viewedSet = new HashSet<>();
 }

@@ -55,4 +55,6 @@ public interface ViewedService {
      * @return list of content
      */
     List<Content> findAllContentByUserId(UUID id);
+
+    List<Content> findAllNotViewedContentByUserId(UUID id);
 }

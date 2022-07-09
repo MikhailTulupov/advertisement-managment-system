@@ -1,5 +1,6 @@
 package ru.tulupov.service;
 
+import ru.tulupov.model.Content;
 import ru.tulupov.model.Page;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface PageService {
      * @param page page
      * @return save entity.
      */
-    Page save(Page page); 
+    Page save(Page page);
+
+    List<Content> findAllContentByPageName(String pageName);
 }
