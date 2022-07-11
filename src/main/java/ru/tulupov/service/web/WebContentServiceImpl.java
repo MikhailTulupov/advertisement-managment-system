@@ -18,18 +18,6 @@ import java.util.*;
 public class WebContentServiceImpl implements WebContentService {
     @Autowired
     ContentService contentService;
-    @Autowired
-    PageService pageService;
-
-    @Override
-    public WebContent save(WebContent webContent) {
-        Content content = ContentMapper.INSTANCE.webContentToContent(webContent);
-        Set<Page> pages = content.getPages();
-        for (Page page : pages) {
-            page.getContents().add(content);
-        }
-        return ContentMapper.INSTANCE.contentToWebContent(contentService.save(content));
-    }
 
     @Override
     public List<WebContent> saveAll(List<WebContent> webContentList) {
@@ -37,29 +25,8 @@ public class WebContentServiceImpl implements WebContentService {
         for (WebContent webContent : webContentList) {
             Content content = ContentMapper.INSTANCE.webContentToContent(webContent);
             contents.add(content);
-            Set<Page> pages = content.getPages();
-
-            for (Page page : pages) {
-                page.getContents().add(content);
-            }
         }
 
         return ContentMapper.INSTANCE.contentsToWebContents(contentService.saveAll(contents));
-    }
-
-    @Override
-    public WebContent getById(String uuid) {
-        Content content = contentService.getById(UUID.fromString(uuid));
-        return ContentMapper.INSTANCE.contentToWebContent(content);
-    }
-
-    @Override
-    public List<WebContent> getAll() {
-        List<Content> contents = contentService.getAll();
-        List<WebContent> webContents = new ArrayList<>();
-        for (Content content : contents) {
-            webContents.add(ContentMapper.INSTANCE.contentToWebContent(content));
-        }
-        return webContents;
     }
 }

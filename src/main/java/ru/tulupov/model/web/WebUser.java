@@ -19,7 +19,7 @@ public class WebUser implements Serializable {
     @JsonAlias(value = "userGuid")
     @JsonProperty(value = "userGuid")
     @Schema(name = "userGuid",
-            title = "User guid",
+            title = "User identifier",
             type = "String",
             example = "81a474b8-c135-4a73-a6de-a9ea51651e28")
     private String id;

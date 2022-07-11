@@ -7,7 +7,7 @@ import ru.tulupov.model.Content;
 import java.util.UUID;
 
 /**
- * {@link ContentRepository} repository general purpose is to hold type information {@link Content},
+ * General purpose of {@link ContentRepository} is to hold type information {@link Content},
  * provide exposed CRUD methods.
  */
 @Repository

@@ -46,7 +46,7 @@ public interface ViewedService {
      * @param id content id
      * @return list of users
      */
-    List<User> findAllUsersByContentId(UUID id);
+    List<User> getAllUsersByContentId(UUID id);
 
     /**
      * Method finds all viewed content by current user id.
@@ -54,7 +54,5 @@ public interface ViewedService {
      * @param id user id
      * @return list of content
      */
-    List<Content> findAllContentByUserId(UUID id);
-
-    List<Content> findAllNotViewedContentByUserId(UUID id);
+    List<Content> getAllContentByUserId(UUID id);
 }

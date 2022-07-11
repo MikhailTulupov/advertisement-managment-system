@@ -12,11 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.tulupov.model.web.WebPostViewed;
 import ru.tulupov.service.web.WebViewedService;
 
+/**
+ * The {@link ViewedController} present's controller.
+ */
 @RestController
 public class ViewedController {
     @Autowired
     WebViewedService webViewedService;
 
+    /**
+     * Method get request post in the form JSON {@link WebPostViewed} mapping and save {@link ru.tulupov.model.Viewed}
+     * content.
+     *
+     * @param webPostViewed request body
+     * @return response body {@link WebPostViewed}
+     */
     @Operation(summary = "Post viewed content")
     @PostMapping("/post-list-viewed")
     @Parameters(value = @Parameter(name = "viewedContent",

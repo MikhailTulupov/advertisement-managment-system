@@ -13,6 +13,7 @@ import ru.tulupov.Application;
 import ru.tulupov.model.User;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Class {@link UserRepositoryTest} testing {@link UserRepository} CRUD methods.
@@ -27,7 +28,7 @@ public class UserRepositoryTest {
 
     @BeforeEach
     void initUseCase() {
-        user = new User();
+        user = User.builder().id(UUID.randomUUID()).build();
         userRepository.save(user);
     }
 

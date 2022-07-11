@@ -16,17 +16,35 @@ import java.util.List;
 public interface ContentMapper {
     ContentMapper INSTANCE = Mappers.getMapper(ContentMapper.class);
 
+    /**
+     * Method mapping web {@link WebContent} model to {@link Content} model
+     *
+     * @param webContent web model
+     * @return data model
+     */
     @Mappings({
             @Mapping(target = "id", source = "webContent.id"),
             @Mapping(target = "pages", source = "webContent.pages")
     })
     Content webContentToContent(WebContent webContent);
 
+    /**
+     * Method mapping {@link Content} model to web {@link WebContent} model
+     *
+     * @param content data model
+     * @return web model
+     */
     @Mappings({
             @Mapping(target = "id", source = "content.id"),
             @Mapping(target = "pages", source = "content.pages")
     })
     WebContent contentToWebContent(Content content);
 
+    /**
+     * Method mapping list of {@link Content} model to list of web {@link WebContent} model
+     *
+     * @param contents list of content
+     * @return list of web models
+     */
     List<WebContent> contentsToWebContents(List<Content> contents);
 }

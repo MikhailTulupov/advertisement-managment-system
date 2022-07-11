@@ -1,7 +1,5 @@
 package ru.tulupov.model.web;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,14 +11,14 @@ import java.util.List;
 /**
  * The {@link WebPostViewed} class presents canal model, witch get from CMS service.
  */
-@Data
-@Schema
-@RequiredArgsConstructor
 @AllArgsConstructor
+@Data
+@RequiredArgsConstructor
+@Schema
 public class WebPostViewed implements Serializable {
-    @JsonAlias(value = "viewed")
-    @JsonProperty(value = "viewed")
-    @Schema(title = "WebViewed",
+    @Schema(name = "viewed",
+            title = "WebViewed",
+            type = "Array",
             example = """
                     [
                         {

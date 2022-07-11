@@ -12,14 +12,15 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * {@link ViewedRepository} general purpose is to hold type information {@link Viewed},
+ * General purpose {@link ViewedRepository} is to hold type information {@link Viewed},
  * provide exposed CRUD.
  */
 @Repository
 public interface ViewedRepository extends JpaRepository<Viewed, UUID> {
     /**
      * Method finds all users witch viewed content.
-     * @param id content guid
+     *
+     * @param id content identifier
      * @return list of users
      */
     @Query("SELECT v.user FROM Viewed v WHERE v.content.id = :id")
@@ -27,12 +28,19 @@ public interface ViewedRepository extends JpaRepository<Viewed, UUID> {
 
     /**
      * Method finds all contents witch user viewed.
-     * @param id user guid
+     *
+     * @param id user identifier
      * @return list of contents
      */
     @Query("SELECT v.content FROM Viewed v WHERE v.user.id = :id")
     List<Content> findAllContentByUserId(@Param("id") UUID id);
 
+    /**
+     * Method finds all not viewed content by user id
+     *
+     * @param id user identifier
+     * @return list of content
+     */
     @Query("SELECT v.content FROM Viewed v WHERE v.user.id <> :id")
     List<Content> findAllNotViewedContentByUserId(@Param("id") UUID id);
 }

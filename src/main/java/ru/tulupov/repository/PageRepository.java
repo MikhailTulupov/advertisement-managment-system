@@ -11,11 +11,17 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * {@link PageRepository} general purpose is to hold type information {@link Page},
+ * General purpose of {@link PageRepository} is to hold type information {@link Page},
  * provide exposed CRUD.
  */
 @Repository
 public interface PageRepository extends JpaRepository<Page, UUID> {
+    /**
+     * This method find list of content by page name
+     *
+     * @param pageName page name
+     * @return list of content
+     */
     @Query("SELECT p.contents FROM Page p WHERE p.name = :pageName")
     List<Content> findAllContentByPageName(@Param("pageName") String pageName);
 }

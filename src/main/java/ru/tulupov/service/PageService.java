@@ -22,5 +22,10 @@ public interface PageService {
      */
     Page save(Page page);
 
-    List<Content> findAllContentByPageName(String pageName);
+    /**
+     * Method find all content by page name and return {@link List}<{@link Content}>
+     *
+     * @return list of contents
+     */
+    List<Content> getAllContentByPageName(String pageName);
 }

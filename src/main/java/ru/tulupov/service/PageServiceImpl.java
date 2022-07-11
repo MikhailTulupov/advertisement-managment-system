@@ -8,8 +8,11 @@ import ru.tulupov.repository.PageRepository;
 
 import java.util.List;
 
+/**
+ * The {@link PageServiceImpl} class implements {@link PageService} interface methods.
+ */
 @Service
-public class PageServiceImpl implements PageService{
+public class PageServiceImpl implements PageService {
     @Autowired
     PageRepository pageRepository;
 
@@ -24,7 +27,7 @@ public class PageServiceImpl implements PageService{
     }
 
     @Override
-    public List<Content> findAllContentByPageName(String pageName) {
+    public List<Content> getAllContentByPageName(String pageName) {
         return pageRepository.findAllContentByPageName(pageName);
     }
 }

@@ -11,10 +11,8 @@ import ru.tulupov.model.web.WebContent;
 import ru.tulupov.model.web.WebPublishedContent;
 import ru.tulupov.service.web.WebContentService;
 
-import java.util.List;
-
 /**
- * The {@link ContentController} class presents' controller.
+ * The {@link ContentController} class present's controller.
  */
 @RestController
 public class ContentController {
@@ -22,7 +20,7 @@ public class ContentController {
     WebContentService webContentService;
 
     /**
-     * Method post list of {@link WebContent} to list {@link ru.tulupov.model.Content}
+     * Method get request post list of {@link WebContent} and mapping and save to list {@link ru.tulupov.model.Content}
      *
      * @param webPublishedContent list of web contents.
      * @return request body of list of contents.

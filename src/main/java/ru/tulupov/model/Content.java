@@ -8,39 +8,30 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * The {@link Content} class is a data model that is represented as an entity.
+ * The {@link Content} class is model that is represented content witch presents in web browser page.
  * Content contains many-to-many relationship with the {@link Page} class.
  * The many-to-many relationship with a Page is represented as a {@link Set}<{@link Page}>,
  * i.e. {@link Content} can be contained on many pages. And a {@link Page} can contain {@link Set}<{@link Content}>.
+ * Content also contains one-to-may relationship with the {@link Viewed} class.
  */
-@Data
 @AllArgsConstructor
-@RequiredArgsConstructor
-@NoArgsConstructor
 @Builder
+@Data
 @EqualsAndHashCode(exclude = {"pages", "viewedSet"})
 @Entity
+@RequiredArgsConstructor
 @Table(name = "content")
 public class Content {
     @Id
-    @NonNull
     private UUID id;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "contents",
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
+    @ManyToMany(mappedBy = "contents", fetch = FetchType.EAGER)
     @Builder.Default
     private Set<Page> pages = new HashSet<>();
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "content",
-            cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-    })
+    @OneToMany(mappedBy = "content")
     @Builder.Default
     private Set<Viewed> viewedSet = new HashSet<>();
 }
