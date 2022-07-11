@@ -13,14 +13,16 @@ import java.util.List;
 /**
  * The {@link WebPublishedContent} class presents canal model, witch get from CMS service.
  */
-@Data
-@Schema
-@RequiredArgsConstructor
 @AllArgsConstructor
+@Data
+@RequiredArgsConstructor
+@Schema
 public class WebPublishedContent implements Serializable {
     @JsonAlias(value = "content")
     @JsonProperty(value = "content")
-    @Schema(title = "WebContent",
+    @Schema(name = "content",
+            title = "WebContent",
+            type = "Array",
             example = """
                     [
                         {

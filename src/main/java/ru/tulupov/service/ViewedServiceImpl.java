@@ -1,6 +1,5 @@
 package ru.tulupov.service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.tulupov.model.Content;
@@ -15,10 +14,13 @@ import java.util.UUID;
  * The {@link ViewedServiceImpl} class implements {@link ViewedService} methods.
  */
 @Service
-@AllArgsConstructor
 public class ViewedServiceImpl implements ViewedService {
     @Autowired
     ViewedRepository viewedRepository;
+    @Autowired
+    ContentService contentService;
+    @Autowired
+    UserService userService;
 
     @Override
     public Viewed save(Viewed viewed) {
@@ -27,6 +29,10 @@ public class ViewedServiceImpl implements ViewedService {
 
     @Override
     public List<Viewed> saveAll(List<Viewed> viewedList) {
+        for (Viewed viewed : viewedList) {
+            contentService.save(viewed.getContent());
+            userService.save(viewed.getUser());
+        }
         return viewedRepository.saveAll(viewedList);
     }
 
@@ -41,17 +47,12 @@ public class ViewedServiceImpl implements ViewedService {
     }
 
     @Override
-    public List<User> findAllUsersByContentId(UUID id) {
+    public List<User> getAllUsersByContentId(UUID id) {
         return viewedRepository.findAllUsersByContentId(id);
     }
 
     @Override
-    public List<Content> findAllContentByUserId(UUID id) {
+    public List<Content> getAllContentByUserId(UUID id) {
         return viewedRepository.findAllContentByUserId(id);
-    }
-
-    @Override
-    public List<Content> findAllNotViewedContentByUserId(UUID id) {
-        return viewedRepository.findAllNotViewedContentByUserId(id);
     }
 }

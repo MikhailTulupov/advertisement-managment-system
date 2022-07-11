@@ -17,7 +17,6 @@ import java.util.*;
  * Class {@link ViewedRepositoryTest} testing {@link ViewedRepositoryTest} CRUD methods.
  */
 @ExtendWith(SpringExtension.class)
-@Transactional
 @SpringBootTest(classes = Application.class)
 public class ViewedRepositoryTest {
     @Autowired
@@ -34,9 +33,9 @@ public class ViewedRepositoryTest {
 
     @AfterEach
     void destroyAll() {
+        viewedRepository.deleteAll();
         contentRepository.deleteAll();
         userRepository.deleteAll();
-        viewedRepository.deleteAll();
     }
 
     @Test
@@ -47,11 +46,11 @@ public class ViewedRepositoryTest {
     }
 
     private void initFindViewedById() {
-        user = new User();
-        Content content = new Content();
+        User user = User.builder().id(UUID.randomUUID()).build();
+        Content content = Content.builder().id(UUID.randomUUID()).build();
+        viewed = Viewed.builder().user(user).content(content).build();
         userRepository.save(user);
         contentRepository.save(content);
-        viewed = Viewed.builder().user(user).content(content).build();
         viewedRepository.save(viewed);
     }
 
@@ -69,20 +68,22 @@ public class ViewedRepositoryTest {
         Assertions.assertEquals(users, userList);
     }
     private void initFindAllViewedContentByUserId() {
-        user = new User();
+        user = User.builder().id(UUID.randomUUID()).build();
+        userRepository.save(user);
         for (int i = 0; i < 10; i++) {
-            Content content = new Content();
+            Content content = Content.builder().id(UUID.randomUUID()).build();
             Viewed viewed = Viewed.builder().user(user).content(content).build();
+            contentRepository.save(content);
             viewedRepository.save(viewed);
         }
     }
 
     private void initFindAllUsersByContentId() {
         users = new ArrayList<>();
-        content = new Content();
+        content = Content.builder().id(UUID.randomUUID()).build();
         contentRepository.save(content);
         for (int i = 0; i < 10; i++) {
-            User user = new User();
+            User user = User.builder().id(UUID.randomUUID()).build();
             userRepository.save(user);
             users.add(user);
             Viewed viewed = Viewed.builder().user(user).content(content).build();
@@ -94,13 +95,15 @@ public class ViewedRepositoryTest {
     public void setViewedTest() {
         initSetViewed();
         List<Viewed> all = viewedRepository.findAll();
-        List<User> all1 = userRepository.findAll();
-        List<Content> all2 = contentRepository.findAll();
         Assertions.assertEquals(1, all.size());
     }
 
     private void initSetViewed() {
-        Viewed viewed1 = Viewed.builder().user(new User()).content(new Content()).build();
+        User user = User.builder().id(UUID.randomUUID()).build();
+        Content content = Content.builder().id(UUID.randomUUID()).build();
+        Viewed viewed1 = Viewed.builder().user(user).content(content).build();
+        userRepository.save(user);
+        contentRepository.save(content);
         viewedRepository.save(viewed1);
     }
 }

@@ -7,7 +7,7 @@ import ru.tulupov.model.User;
 import java.util.UUID;
 
 /**
- * {@link UserRepository} general purpose is to hold type information {@link User},
+ * General purpose of {@link UserRepository} is to hold type information {@link User},
  * provide exposed CRUD.
  */
 @Repository

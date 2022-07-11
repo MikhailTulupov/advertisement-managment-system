@@ -11,19 +11,17 @@ import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
 
 /**
- * The class {@link WebPage} presents canal model class.
+ * The class {@link WebPage} presents canal model class for deserialization and serialization
+ * {@link ru.tulupov.model.Page} for next use. i.e. we get canal model and mapping json object to POJO.
  */
-@Data
-@Schema
-@Builder
-@RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
+@Data
+@RequiredArgsConstructor
+@Schema
 public class WebPage implements Serializable {
     @JsonAlias(value = "pageName")
     @JsonProperty(value = "pageName")
-    @Schema(name = "pageName",
-            title = "Page name",
-            type = "String",
-            example = "MAIN_PAGE")
+    @Schema(name = "pageName", title = "Page name", type = "String", example = "MAIN_PAGE")
     private String name;
 }

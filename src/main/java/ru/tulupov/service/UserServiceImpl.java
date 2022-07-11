@@ -7,12 +7,21 @@ import ru.tulupov.repository.UserRepository;
 
 import java.util.List;
 
+/**
+ * The {@link UserServiceImpl} class implements {@link UserService} interface methods.
+ */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
+
     @Override
-    public List<User> findAll() {
+    public List<User> getAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

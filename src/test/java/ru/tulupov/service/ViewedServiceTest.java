@@ -7,45 +7,67 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 import ru.tulupov.Application;
 import ru.tulupov.model.Content;
 import ru.tulupov.model.User;
 import ru.tulupov.model.Viewed;
+import ru.tulupov.repository.ContentRepository;
+import ru.tulupov.repository.UserRepository;
 import ru.tulupov.repository.ViewedRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
  * Class {@link ViewedServiceTest} testing {@link ViewedService} methods.
  */
 @ExtendWith(SpringExtension.class)
-@Transactional
 @SpringBootTest(classes = Application.class)
 public class ViewedServiceTest {
     @Autowired
     ViewedService viewedService;
-
+    @Autowired
+    ContentService contentService;
+    @Autowired
+    UserService userService;
     @Autowired
     ViewedRepository viewedRepository;
+    @Autowired
+    ContentRepository contentRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @AfterEach
     void destroyAll() {
         viewedRepository.deleteAll();
+        contentRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
     public void saveViewedTest() {
         Viewed viewed = Viewed
                 .builder()
-                .user(new User(UUID.randomUUID()))
-                .content(new Content(UUID.randomUUID()))
+                .user(getRandomUser())
+                .content(getRandomContent())
                 .build();
+
+        saveUser(viewed);
+        saveContent(viewed);
 
         viewedService.save(viewed);
 
         Assertions.assertEquals(1, viewedRepository.count());
+    }
+
+    private void saveUser(Viewed viewed) {
+        viewed.getUser().setViewedSet(Set.of(viewed));
+        userService.save(viewed.getUser());
+    }
+
+    private Content getRandomContent() {
+        return Content.builder().id(UUID.randomUUID()).build();
     }
 
     @Test
@@ -53,15 +75,20 @@ public class ViewedServiceTest {
         List<Viewed> viewedList = List.of(
                 Viewed
                         .builder()
-                        .user(new User(UUID.randomUUID()))
-                        .content(new Content(UUID.randomUUID()))
+                        .user(getRandomUser())
+                        .content(getRandomContent())
                         .build(),
                 Viewed
                         .builder()
-                        .user(new User(UUID.randomUUID()))
-                        .content(new Content(UUID.randomUUID()))
+                        .user(getRandomUser())
+                        .content(getRandomContent())
                         .build()
         );
+
+        for (Viewed viewed : viewedList) {
+            saveContent(viewed);
+            saveUser(viewed);
+        }
 
         viewedService.saveAll(viewedList);
 
@@ -72,12 +99,23 @@ public class ViewedServiceTest {
     public void getViewedById() {
         Viewed viewed = Viewed
                 .builder()
-                .user(new User(UUID.randomUUID()))
-                .content(new Content(UUID.randomUUID()))
+                .user(getRandomUser())
+                .content(getRandomContent())
                 .build();
+        saveUser(viewed);
+        saveContent(viewed);
         viewedService.save(viewed);
 
         Assertions.assertEquals(viewed.getId(), viewedService.getById(viewed.getId()).getId());
+    }
+
+    private void saveContent(Viewed viewed) {
+        viewed.getContent().setViewedSet(Set.of(viewed));
+        contentService.save(viewed.getContent());
+    }
+
+    private User getRandomUser() {
+        return User.builder().id(UUID.randomUUID()).build();
     }
 
     @Test
@@ -85,15 +123,20 @@ public class ViewedServiceTest {
         List<Viewed> viewedList = List.of(
                 Viewed
                         .builder()
-                        .user(new User(UUID.randomUUID()))
-                        .content(new Content(UUID.randomUUID()))
+                        .user(getRandomUser())
+                        .content(getRandomContent())
                         .build(),
                 Viewed
                         .builder()
-                        .user(new User(UUID.randomUUID()))
-                        .content(new Content(UUID.randomUUID()))
+                        .user(getRandomUser())
+                        .content(getRandomContent())
                         .build()
         );
+
+        for (Viewed viewed : viewedList) {
+            saveContent(viewed);
+            saveUser(viewed);
+        }
 
         viewedService.saveAll(viewedList);
 
@@ -102,53 +145,63 @@ public class ViewedServiceTest {
 
     @Test
     public void findAllUsersByContentId() {
-        Content content = new Content(UUID.randomUUID());
+        Content content = getRandomContent();
         List<Viewed> viewedList = List.of(
                 Viewed
                         .builder()
-                        .user(new User(UUID.randomUUID()))
+                        .user(getRandomUser())
                         .content(content)
                         .build(),
                 Viewed
                         .builder()
-                        .user(new User(UUID.randomUUID()))
+                        .user(getRandomUser())
                         .content(content)
                         .build(),
                 Viewed
                         .builder()
-                        .user(new User(UUID.randomUUID()))
+                        .user(getRandomUser())
                         .content(content)
                         .build()
         );
 
+        for (Viewed viewed : viewedList) {
+            saveContent(viewed);
+            saveUser(viewed);
+        }
+
         viewedService.saveAll(viewedList);
 
-        Assertions.assertEquals(3, viewedService.findAllUsersByContentId(content.getId()).size());
+        Assertions.assertEquals(3, viewedService.getAllUsersByContentId(content.getId()).size());
     }
 
     @Test
     public void findAllContentByUserId() {
-        User user = new User(UUID.randomUUID());
+        User user = getRandomUser();
         List<Viewed> viewedList = List.of(
                 Viewed
                         .builder()
                         .user(user)
-                        .content(new Content(UUID.randomUUID()))
+                        .content(getRandomContent())
                         .build(),
                 Viewed
                         .builder()
                         .user(user)
-                        .content(new Content(UUID.randomUUID()))
+                        .content(getRandomContent())
                         .build(),
                 Viewed
                         .builder()
                         .user(user)
-                        .content(new Content(UUID.randomUUID()))
+                        .content(getRandomContent())
                         .build()
         );
 
+        for (Viewed viewed : viewedList) {
+            saveContent(viewed);
+            saveUser(viewed);
+        }
+
         viewedService.saveAll(viewedList);
 
-        Assertions.assertEquals(3, viewedService.findAllContentByUserId(user.getId()).size());
+        Assertions.assertEquals(3, viewedService.getAllContentByUserId(user.getId()).size());
     }
 }

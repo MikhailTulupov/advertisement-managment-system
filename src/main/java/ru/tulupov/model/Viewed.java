@@ -7,15 +7,15 @@ import javax.persistence.*;
 import java.util.UUID;
 
 /**
- * The {@link Viewed} class is a data model that is represented as an entity.
- * Viewer contains a {@link User} id and an id of the {@link Content} that the user viewed.
+ * The {@link Viewed} class is a data model that is represented viewed.
+ * Viewer contains a {@link User} id who watch viewed content and an id of the {@link Content}.
  * The {@link Viewed} class stores records of the content viewed by the user.
  */
-@Data
-@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 @Entity
+@RequiredArgsConstructor
 @Table(name = "viewed")
 public class Viewed {
     @Id
@@ -24,15 +24,11 @@ public class Viewed {
             strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.EAGER,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinColumn(name = "user_guid", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "user_guid")
     private User user;
 
-   @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "content_guid", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "content_guid")
     private Content content;
 }

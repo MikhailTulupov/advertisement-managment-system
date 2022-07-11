@@ -5,19 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.tulupov.model.Content;
 import ru.tulupov.repository.ContentRepository;
+import ru.tulupov.repository.PageRepository;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 /**
- * The {@link ContentServiceImpl} class implements {@link ContentService} methods.
+ * The {@link ContentServiceImpl} class implements {@link ContentService} interface methods.
  */
 @Service
-@AllArgsConstructor
 public class ContentServiceImpl implements ContentService {
     @Autowired
     ContentRepository contentRepository;
+    @Autowired
+    PageService pageService;
 
     @Override
     public Content save(Content content) {
@@ -26,7 +27,11 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public List<Content> saveAll(List<Content> contents) {
-        return contentRepository.saveAll(contents);
+        contentRepository.saveAll(contents);
+        for (Content content : contents) {
+            pageService.saveAll(List.copyOf(content.getPages()));
+        }
+        return contents;
     }
 
     @Override

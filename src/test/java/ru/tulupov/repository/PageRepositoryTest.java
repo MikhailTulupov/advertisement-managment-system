@@ -18,7 +18,6 @@ import java.util.Optional;
  * Class {@link PageRepositoryTest} testing {@link PageRepository} CRUD methods.
  */
 @ExtendWith(SpringExtension.class)
-@Transactional
 @SpringBootTest(classes = Application.class)
 public class PageRepositoryTest {
     @Autowired
